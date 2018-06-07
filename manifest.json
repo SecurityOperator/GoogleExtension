@@ -1,0 +1,31 @@
+{
+  "name": "SecurityOperator",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "permissions": [
+    "alarms",
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "tabs",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "images/icon_32.png",
+    "default_title": "SecurityOperator",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "32": "images/icon_32.png",
+    "48": "images/icon_48.png",
+    "128": "images/icon_128.png"
+  },
+  "manifest_version": 2
+}
