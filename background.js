@@ -1,5 +1,5 @@
 // const REMOTE_URL = "mock/response_danger.json";
-const REMOTE_URL = "http://localhost:8081/sites";
+const REMOTE_URL = "http://localhost:8082/check";
 
 const Log = (...data) => console.log("[DEBUG]", ...data);
 
@@ -109,15 +109,15 @@ const checkData = async () => {
 
   if (!Array.isArray(urls)) urls = [];
 
-  if (urls.length > 0 && urls.some((el, i) => el.url == url)) {
-    let data = getObjectFromArrayByUrl(urls, url);
-    UpdateIcon(data.result);
-    sendMessage({ type: "onResponseSuccess", data });
-  } else {
+  // if (urls.length > 0 && urls.some((el, i) => el.url == url)) {
+  //   let data = getObjectFromArrayByUrl(urls, url);
+  //   UpdateIcon(data.result);
+  //   sendMessage({ type: "onResponseSuccess", data });
+  // } else {
     UpdateIcon("checking");
     sendMessage({ type: "onWaitRequest" });
     await documentLoad();
-  }
+  // }
 };
 
 const fetchData = data =>
@@ -131,6 +131,7 @@ const fetchData = data =>
   })
     .then(r => r.json())
     .then(async ({ response }) => {
+      console.log(response);
       if (response && response.result) {
         if (!response.url) {
           let { url } = await ActiveTab();
@@ -150,6 +151,10 @@ const fetchData = data =>
 const App = async () => {
   await preload();
   await checkData();
+
+  setInterval(()=>{
+    checkData();
+  }, 5000)
 };
 
 App();
